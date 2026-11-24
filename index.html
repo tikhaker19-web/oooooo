@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>تحدي الأبطال 🎮</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--a:#7c5cff;--b:#00d4ff;--c:#ff3d81;--g:#2ee59d;--r:#ff4d5e;--y:#ffc83d}
+body{
+  font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;
+  color:#fff;
+  min-height:100vh;
+  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e,#1a0b3d);
+  background-size:400% 400%;
+  animation:bg 18s ease infinite;
+  overflow-x:hidden
+}
+@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+.orb{position:fixed;border-radius:50%;filter:blur(65px);opacity:.3;z-index:0;pointer-events:none}
+.o1{width:240px;height:240px;background:var(--a);top:-60px;right:-60px}
+.o2{width:280px;height:280px;background:var(--c);bottom:-80px;left:-70px}
+.o3{width:190px;height:190px;background:var(--b);top:45%;left:30%}
+.wrap{
+  position:relative;
+  z-index:1;
+  max-width:520px;
+  margin:0 auto;
+  padding:18px 16px 40px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+.card{
+  background:rgba(20,18,45,.88);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:26px;
+  padding:24px 20px;
+  box-shadow:0 20px 50px rgba(0,0,0,.45);
+  animation:pop .35s ease-out
+}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hidden{display:none!important}
+.logo{font-size:64px;text-align:center;animation:bounce 2s infinite}
+@keyframes bounce{50%{transform:translateY(-8px) rotate(-5deg)}}
+h1{text-align:center;font-size:30px;font-weight:900;margin:6px 0 4px;background:linear-gradient(90deg,var(--b),var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{text-align:center;opacity:.78;font-size:14px;margin-bottom:20px}
+input[type=text]{width:100%;padding:16px 18px;border-radius:16px;border:2px solid rgba(255,255,255,.2);background:rgba(0,0,0,.32);color:#fff;font-size:18px;text-align:center;outline:none;font-family:inherit;transition:.2s}
+input[type=text]:focus{border-color:var(--b);box-shadow:0 0 0 4px rgba(0,212,255,.18)}
+.btn{display:block;width:100%;margin-top:14px;padding:16px;border:0;border-radius:16px;font-size:18px;font-weight:800;color:#fff;cursor:pointer;font-family:inherit;background:linear-gradient(90deg,var(--a),var(--c));box-shadow:0 8px 24px rgba(124,92,255,.4);transition:.18s}
+.btn:active{transform:scale(.97)}
+.btn.sec{background:rgba(255,255,255,.12);box-shadow:none;border:1px solid rgba(255,255,255,.2)}
+.err{color:var(--r);text-align:center;font-size:14px;margin-top:8px;min-height:18px}
+.cats{display:grid;gap:12px;margin-top:10px}
+.cat{display:flex;align-items:center;gap:14px;padding:16px;border-radius:18px;border:0;color:#fff;font-family:inherit;font-size:18px;font-weight:800;cursor:pointer;text-align:right;transition:.18s;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.cat:active{transform:scale(.97)}
+.cat span.e{font-size:34px}.cat small{display:block;font-size:12px;font-weight:500;opacity:.88}
+.c1{background:linear-gradient(120deg,#f7971e,#ffd200 140%);color:#2b1d00}
+.c2{background:linear-gradient(120deg,#ee0979,#7c5cff)}
+.c3{background:linear-gradient(120deg,#11998e,#38ef7d 160%);color:#00281c}
+.c4{background:linear-gradient(120deg,#ff4d5e,#ffc83d,#2ee59d,#00d4ff,#7c5cff);color:#111}
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:8px}
+.chip{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:7px 14px;font-weight:800;font-size:14px;white-space:nowrap}
+.bar{height:8px;background:rgba(255,255,255,.12);border-radius:9px;overflow:hidden;margin-bottom:6px}
+.bar>i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--g),var(--y),var(--r));transform-origin:right;transition:transform 1s linear}
+.prog{height:4px;background:rgba(255,255,255,.1);border-radius:9px;overflow:hidden;margin-bottom:16px}
+.prog>i{display:block;height:100%;background:var(--b);transition:width .35s}
+.q{font-size:21px;font-weight:800;line-height:1.7;text-align:center;margin:10px 0 18px;min-height:72px;display:flex;align-items:center;justify-content:center}
+.opts{display:grid;gap:11px}
+.opt{padding:15px 16px;border-radius:16px;border:2px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:17px;font-family:inherit;font-weight:600;cursor:pointer;text-align:right;transition:.16s}
+.opt:active{transform:scale(.97)}
+.opt.ok{background:linear-gradient(90deg,#16a870,#2ee59d);border-color:#2ee59d;color:#032;animation:ok .45s}
+.opt.no{background:linear-gradient(90deg,#c9253b,#ff4d5e);border-color:#ff4d5e;animation:shake .4s}
+.opt.off{opacity:.25;pointer-events:none}
+@keyframes ok{50%{transform:scale(1.03)}}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.tools{display:flex;gap:10px;margin-top:16px}
+.tools .btn{margin:0;padding:12px;font-size:15px}
+.big{font-size:64px;text-align:center}
+.score{font-size:54px;font-weight:900;text-align:center;background:linear-gradient(90deg,var(--y),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stat{background:rgba(0,0,0,.3);border-radius:14px;padding:10px 4px;text-align:center}
+.stat b{display:block;font-size:20px}.stat span{font-size:11px;opacity:.75}
+.lb{list-style:none;margin-top:8px}
+.lb li{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.07);margin-bottom:7px;font-weight:700}
+.lb li:nth-child(1){background:linear-gradient(90deg,rgba(255,200,61,.35),rgba(255,255,255,.07))}
+.lb .n{flex:1}.lb .s{color:var(--y)}.lb .cn{font-size:11px;opacity:.65;font-weight:500}
+h3{margin:18px 0 6px;text-align:center}
+.streak{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:9;background:linear-gradient(90deg,#ff7a18,#ff3d81);padding:8px 18px;border-radius:999px;font-weight:900;animation:pop .3s;box-shadow:0 6px 20px rgba(255,61,129,.5)}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:8}
+.hi{font-size:15px;text-align:center;margin-top:4px;opacity:.85}
+</style>
+</head>
+<body>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<canvas id="fx"></canvas>
+<div class="wrap">
+
+<!-- تسجيل الدخول -->
+<section id="s-login" class="card">
+  <div class="logo">🎮</div>
+  <h1>تحدي الأبطال</h1>
+  <p class="sub">مستر بين • مسلسلات شعبية • GTA 5</p>
+  <input type="text" id="name" maxlength="16" placeholder="اكتب اسمك عشان تدخل اللعبة" autocomplete="off">
+  <div class="err" id="err"></div>
+  <button class="btn" id="go">يلا ندخل 🚀</button>
+  <button class="btn sec" id="lb1">🏆 لوحة الأبطال</button>
+</section>
+
+<!-- اختيار القسم -->
+<section id="s-cat" class="card hidden">
+  <h1 id="hello">أهلاً</h1>
+  <p class="sub">اختار القسم اللي تحب تتحدى فيه</p>
+  <div class="cats">
+    <button class="cat c1" data-c="bean"><span class="e">🧸</span><div>مستر بين<small>10 أسئلة عن الكوميديان الأشهر</small></div></button>
+    <button class="cat c2" data-c="series"><span class="e">📺</span><div>مسلسلات شعبية<small>عالمية ومصرية</small></div></button>
+    <button class="cat c3" data-c="gta"><span class="e">🚗</span><div>GTA 5<small>لوس سانتوس مستنياك</small></div></button>
+    <button class="cat c4" data-c="all"><span class="e">🔥</span><div>تحدي الكل<small>10 أسئلة مخلوطة من الأقسام</small></div></button>
+  </div>
+  <button class="btn sec" id="lb2">🏆 لوحة الأبطال</button>
+  <button class="btn sec" id="out">تغيير اللاعب</button>
+</section>
+
+<!-- اللعب -->
+<section id="s-play" class="card hidden">
+  <div class="hud">
+    <div class="chip" id="pn">👤</div>
+    <div class="chip">⭐ <span id="sc">0</span></div>
+    <div class="chip">⏱ <span id="tm">15</span></div>
+  </div>
+  <div class="bar"><i id="tb"></i></div>
+  <div class="prog"><i id="pg"></i></div>
+  <div class="hi" id="qn"></div>
+  <div class="q" id="q"></div>
+  <div class="opts" id="opts"></div>
+  <div class="tools"><button class="btn sec" id="fifty">✂️ حذف إجابتين (1)</button></div>
+</section>
+
+<!-- النتيجة -->
+<section id="s-end" class="card hidden">
+  <div class="big" id="medal">🏆</div>
+  <h1 id="eh">النتيجة</h1>
+  <div class="score" id="es">0</div>
+  <div class="stats">
+    <div class="stat"><b id="sr">0</b><span>إجابات صح</span></div>
+    <div class="stat"><b id="sw">0</b><span>إجابات غلط</span></div>
+    <div class="stat"><b id="ss">0</b><span>أطول سلسلة</span></div>
+  </div>
+  <h3>🏆 لوحة الأبطال</h3>
+  <ul class="lb" id="lbEnd"></ul>
+  <button class="btn" id="again">العب تاني 🔁</button>
+  <button class="btn sec" id="home">القائمة الرئيسية</button>
+</section>
+
+<!-- لوحة الأبطال -->
+<section id="s-lb" class="card hidden">
+  <h1>🏆 لوحة الأبطال</h1>
+  <p class="sub">أعلى 10 نتائج على هذا الجهاز</p>
+  <ul class="lb" id="lbAll"></ul>
+  <button class="btn" id="back">رجوع</button>
+</section>
+
+</div>
+
+<script>
+const DB = {
+ bean: { name:"مستر بين", q:[
+  ["من الممثل الذي يؤدي شخصية مستر بين؟",["روان أتكينسون","هيو جرانت","جيم كاري","ستيف كاريل"],0],
+  ["ما اسم الدمية التي لا تفارق مستر بين؟",["تيدي","بوبي","ليو","تومي"],0],
+  ["ما نوع سيارة مستر بين الشهيرة؟",["ميني","فولكس فاجن","فورد","فيات"],0],
+  ["ما جنسية مستر بين؟",["بريطاني","أمريكي","فرنسي","أسترالي"],0],
+  ["في أي عام عُرضت أول حلقة من مستر بين؟",["1990","1985","1995","2000"],0],
+  ["في أي مدينة تدور أحداث فيلم Bean (1997)؟",["لوس أنجلوس","نيويورك","باريس","روما"],0],
+  ["إلى أين يسافر مستر بين في فيلم Mr. Bean's Holiday؟",["جنوب فرنسا","إيطاليا","إسبانيا","اليونان"],0],
+  ["ما اسم صديقة مستر بين في المسلسل؟",["إيرما جوب","ليزا","سارة","إميلي"],0],
+  ["أي لوحة شهيرة دمّرها مستر بين في فيلم Bean؟",["أم ويسلر","الموناليزا","ليلة النجوم","الصرخة"],0],
+  ["ما أبرز ما يميز شخصية مستر بين؟",["قلة الكلام والتعابير الكوميدية","الغناء","القتال","الطبخ"],0]
+ ]},
+ series: { name:"مسلسلات شعبية", q:[
+  ["في أي دولة تدور أحداث مسلسل Squid Game؟",["كوريا الجنوبية","اليابان","الصين","تايلاند"],0],
+  ["ما مهنة والتر وايت في Breaking Bad؟",["مدرس كيمياء","طبيب","محامي","شرطي"],0],
+  ["ما شعار عائلة ستارك في Game of Thrones؟",["الذئب","الأسد","التنين","الغزال"],0],
+  ["ما الاسم الحركي لزعيم العصابة في La Casa de Papel؟",["البروفيسور","طوكيو","برلين","دنفر"],0],
+  ["ما اسم البلدة في مسلسل Stranger Things؟",["هوكينز","ريفرديل","سبرينجفيلد","جرافيتي فولز"],0],
+  ["كم عدد الأصدقاء الرئيسيين في مسلسل Friends؟",["6","4","5","7"],0],
+  ["من بطل المسلسل المصري «رأفت الهجان»؟",["محمود عبد العزيز","عادل إمام","نور الشريف","يحيى الفخراني"],0],
+  ["من بطلة مسلسل Wednesday؟",["جينا أورتيجا","إيما واتسون","ميلي بوبي براون","زندايا"],0],
+  ["ما رقم اللاعب بطل Squid Game؟",["456","001","218","067"],0],
+  ["من بطل مسلسل «لن أعيش في جلباب أبي»؟",["نور الشريف","أحمد زكي","محمد صبحي","عمر الشريف"],0]
+ ]},
+ gta: { name:"GTA 5", q:[
+  ["كم عدد الشخصيات الرئيسية القابلة للعب في GTA 5؟",["3","1","2","4"],0],
+  ["ما اسم الولاية الخيالية في GTA 5؟",["سان أندرياس","فايس سيتي","ليبرتي سيتي","نيفادا"],0],
+  ["ما اسم المدينة الرئيسية في GTA 5؟",["لوس سانتوس","سان فييرو","لاس فينتوراس","ميامي"],0],
+  ["في أي عام صدرت GTA 5 لأول مرة؟",["2013","2010","2015","2008"],0],
+  ["من الشركة المطوّرة للعبة GTA 5؟",["Rockstar North","Ubisoft","EA","Activision"],0],
+  ["ما اسم كلب فرانكلين؟",["تشوب","ريكس","باستر","روكي"],0],
+  ["ما الاسم الكامل لمايكل في اللعبة؟",["مايكل دي سانتا","مايكل فيليبس","مايكل كلينتون","مايكل جونسون"],0],
+  ["ما اسم الجبل الأعلى في خريطة GTA 5؟",["جبل تشيليد","جبل جوردو","جبل جوسيب","جبل جوردان"],0],
+  ["إلى أي عصابة ينتمي فرانكلين في البداية؟",["Families","Ballas","Vagos","Lost MC"],0],
+  ["على أي منصتين صدرت GTA 5 أولاً؟",["PS3 و Xbox 360","PC فقط","PS4 و Xbox One","Switch و PS2"],0]
+ ]}
+};
+
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const store={
+  get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+const show=id=>{document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));$(id).classList.remove("hidden")};
+
+let AC;
+function beep(f,d=.15,t="sine"){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();
+ const o=AC.createOscillator(),g=AC.createGain();o.type=t;o.frequency.value=f;g.gain.value=.08;
+ o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}}
+const sOk=()=>{beep(660,.12);setTimeout(()=>beep(880,.18),110)};
+const sNo=()=>beep(160,.35,"sawtooth");
+
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[];
+function rs(){cv.width=innerWidth;cv.height=innerHeight}rs();addEventListener("resize",rs);
+function confetti(n=120){const cols=["#ff4d5e","#ffc83d","#2ee59d","#00d4ff","#7c5cff","#ff3d81"];
+ for(let i=0;i<n;i++)parts.push({x:cv.width/2,y:cv.height*.4,vx:(Math.random()-.5)*14,vy:-Math.random()*13-3,s:Math.random()*8+4,c:cols[i%6],r:Math.random()*6,l:90+Math.random()*50});
+ if(parts.length===n)loop()}
+function loop(){cx.clearRect(0,0,cv.width,cv.height);
+ parts=parts.filter(p=>p.l>0);
+ parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.r+=.2;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore()});
+ if(parts.length)requestAnimationFrame(loop);else cx.clearRect(0,0,cv.width,cv.height)}
+
+let player=store.get("qg_player",""),cat="",qs=[],i=0,score=0,right=0,wrong=0,streak=0,best=0,timer=null,left=15,locked=false,fiftyUsed=false;
+const TIME=15,N=10;
+
+function login(){
+  const v=$("name").value.trim();
+  if(v.length<2){$("err").textContent="اكتب اسمك (حرفين على الأقل)";return}
+  $("err").textContent="";
+  player=v;store.set("qg_player",v);toCat();
+}
+function toCat(){$("hello").textContent="أهلاً يا "+player+" 👋";show("s-cat")}
+$("go").onclick=login;
+$("name").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+$("out").onclick=()=>{store.set("qg_player","");player="";$("name").value="";show("s-login")};
+
+function board(el){
+  const l=store.get("qg_lb",[]);
+  el.innerHTML=l.length?l.map((r,k)=>`<li><span>${["🥇","🥈","🥉"][k]||k+1+"."}</span><span class="n">${esc(r.n)}<div class="cn">${esc(r.c)}</div></span><span class="s">${r.s}</span></li>`).join(""):"<li>لسه مفيش نتائج، كن أول بطل!</li>";
+}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let from="s-login";
+$("lb1").onclick=()=>{from="s-login";board($("lbAll"));show("s-lb")};
+$("lb2").onclick=()=>{from="s-cat";board($("lbAll"));show("s-lb")};
+$("back").onclick=()=>show(from);
+
+document.querySelectorAll(".cat").forEach(b=>b.onclick=()=>start(b.dataset.c));
+function start(c){
+  cat=c;
+  let pool=c==="all"?Object.values(DB).flatMap(d=>d.q):DB[c].q;
+  qs=shuffle(pool).slice(0,N);
+  i=0;score=0;right=0;wrong=0;streak=0;best=0;fiftyUsed=false;
+  $("fifty").textContent="✂️ حذف إجابتين (1)";$("fifty").disabled=false;$("fifty").style.opacity=1;
+  $("pn").textContent="👤 "+player;
+  show("s-play");next();
+}
+function next(){
+  if(i>=qs.length)return finish();
+  locked=false;
+  const [t,o,a]=qs[i];
+  $("qn").textContent=`السؤال ${i+1} من ${qs.length}`;
+  $("pg").style.width=(i/qs.length*100)+"%";
+  $("q").textContent=t;
+  $("sc").textContent=score;
+  const idx=shuffle(o.map((_,k)=>k));
+  $("opts").innerHTML="";
+  idx.forEach(k=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=o[k];b.dataset.ok=k===a?"1":"0";
+    b.onclick=()=>pick(b);$("opts").appendChild(b);
+  });
+  runTimer();
+}
+function runTimer(){
+  clearInterval(timer);left=TIME;$("tm").textContent=left;
+  const tb=$("tb");tb.style.transition="none";tb.style.transform="scaleX(1)";void tb.offsetWidth;
+  tb.style.transition="transform 1s linear";
+  timer=setInterval(()=>{left--;$("tm").textContent=left;tb.style.transform=`scaleX(${left/TIME})`;
+    if(left<=5&&left>0)beep(500,.05,"square");
+    if(left<=0){clearInterval(timer);timeUp()}},1000);
+}
+function pick(b){
+  if(locked)return;locked=true;clearInterval(timer);
+  const ok=b.dataset.ok==="1";
+  document.querySelectorAll(".opt").forEach(x=>{if(x.dataset.ok==="1")x.classList.add("ok")});
+  if(ok){
+    streak++;best=Math.max(best,streak);right++;
+    const pts=100+left*5+(streak>=3?streak*10:0);score+=pts;sOk();
+    $("sc").textContent=score;
+    if(streak>=3)flash("🔥 سلسلة "+streak+"!");
+    if(streak>=3)confetti(50);
+  }else{b.classList.add("no");wrong++;streak=0;sNo();if(navigator.vibrate)navigator.vibrate(200)}
+  setTimeout(()=>{i++;next()},1300);
+}
+function timeUp(){
+  if(locked)return;locked=true;wrong++;streak=0;sNo();
+  document.querySelectorAll(".opt").forEach(x=>{if(x.dataset.ok==="1")x.classList.add("ok")});
+  flash("⏰ الوقت خلص!");
+  setTimeout(()=>{i++;next()},1300);
+}
+function flash(t){const d=document.createElement("div");d.className="streak";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1400)}
+
+$("fifty").onclick=()=>{
+  if(fiftyUsed||locked)return;fiftyUsed=true;
+  $("fifty").textContent="✂️ تم الاستخدام";$("fifty").style.opacity=.4;
+  const w=shuffle([...document.querySelectorAll(".opt")].filter(x=>x.dataset.ok==="0")).slice(0,2);
+  w.forEach(x=>x.classList.add("off"));
+};
+
+function finish(){
+  clearInterval(timer);
+  $("pg").style.width="100%";
+  const pct=right/qs.length;
+  $("medal").textContent=pct>=.9?"🏆":pct>=.6?"🥈":pct>=.3?"🥉":"💪";
+  $("eh").textContent=pct>=.9?"أسطورة يا "+player+"!":pct>=.6?"شاطر يا "+player+"!":pct>=.3?"كويس، جرّب تاني":"محتاج تركيز أكتر!";
+  $("es").textContent=score;$("sr").textContent=right;$("sw").textContent=wrong;$("ss").textContent=best;
+  const l=store.get("qg_lb",[]);
+  l.push({n:player,s:score,c:cat==="all"?"تحدي الكل":DB[cat].name});
+  l.sort((a,b)=>b.s-a.s);store.set("qg_lb",l.slice(0,10));
+  board($("lbEnd"));show("s-end");
+  if(pct>=.6)confetti(160);
+}
+$("again").onclick=()=>start(cat);
+$("home").onclick=toCat;
+
+if(player){$("name").value=player}
+</script>
+</body>
+</html>
